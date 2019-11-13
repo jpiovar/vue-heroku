@@ -16,14 +16,20 @@ const actions: ActionTree<UserStore, RootState> = {
         // const rr: any = response;  // mock response
         /* eslint-disable */
         debugger;
-        const rr: any = response.data; // server response
-        const up = rr.filter((item: {name: string, password: string}) => item.name === name && item.password === password);
-        if (up && up.length > 0) {
-          commit('loginUser', { id: up[0].id, name: up[0].name, email: up[0].email });
+        const res: any = response.data; // server response
+        if (res && res.statusCase && res.statusCase === 'ok') {
+          commit('loginUser', { id: res.id, name: res.name, email: res.email });
           resolve(true);
         } else {
           resolve(false);
         }
+        // const up = rr.filter((item: {name: string, password: string}) => item.name === name && item.password === password);
+        // if (up && up.length > 0) {
+        //   commit('loginUser', { id: up[0].id, name: up[0].name, email: up[0].email });
+        //   resolve(true);
+        // } else {
+        //   resolve(false);
+        // }
       }, (error) => {
         console.log('error ', error);
       });
